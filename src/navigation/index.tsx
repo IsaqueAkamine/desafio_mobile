@@ -1,9 +1,12 @@
 import React from 'react';
-import Login from '../pages/Login';
+import { NavigationContainer } from '@react-navigation/native';
+import AuthNavigation from './AuthNavigation';
 
 const Navigation = () => {
     return (
-        <Login />
+        <NavigationContainer>
+            <AuthNavigation />
+        </NavigationContainer>
     )
 }
 
