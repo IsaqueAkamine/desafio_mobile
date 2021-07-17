@@ -1,12 +1,12 @@
 import React from 'react';
 import { Container, Title } from './styles';
 
-const Login = () => {
+const Home = () => {
     return (
         <Container>
-            <Title>Login screen</Title>
+            <Title>Home screen</Title>
         </Container>
     )
 }
 
-export default Login;
+export default Home;
