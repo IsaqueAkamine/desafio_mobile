@@ -9,3 +9,5 @@ export const Container = styled.View`
 export const Title = styled.Text`
     font-size: 18px;
 `;
+
+export const ButtonSubmit = styled.Button``;

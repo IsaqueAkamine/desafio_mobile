@@ -2,16 +2,16 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 //Pages import
-import Login from '../pages/Login';
-import Home from '../pages/Home';
+import SignInScreen from '../pages/SignIn';
+import SignUpScreen from '../pages/SignUp';
 
 const AuthStack = createStackNavigator();
 
 const AuthNavigation = () => {
     return (
-        <AuthStack.Navigator initialRouteName="Login">
-            <AuthStack.Screen name="Login" component={Login} />
-            <AuthStack.Screen name="Home" component={Home} />
+        <AuthStack.Navigator initialRouteName="SignIn">
+            <AuthStack.Screen name="SignIn" component={SignInScreen} />
+            <AuthStack.Screen name="SignUp" component={SignUpScreen} />
         </AuthStack.Navigator>
     )
 }
