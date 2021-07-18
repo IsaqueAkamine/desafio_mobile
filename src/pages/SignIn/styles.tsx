@@ -1,5 +1,8 @@
+import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 import { colors } from '../../utils/colors';
+
+const { width, height } = Dimensions.get('window');
 
 export const Container = styled.View`
     flex: 1;
@@ -18,7 +21,7 @@ export const FormContainer = styled.View`
     background-color: #fff;
     border-top-left-radius: 40px;
     border-top-right-radius: 40px;
-    padding: 60px 30px 80px 30px;
+    padding: ${height*0.05}px ${width*0.06}px ${height*0.05}px ${width*0.06}px;
 `;
 
 export const Title = styled.Text`
@@ -28,12 +31,12 @@ export const Title = styled.Text`
 `;
 
 export const InputsContainer = styled.View`
-    margin: 50px 0;
+    margin: ${height*0.03}px 0;
 `;
 
 export const Input = styled.TextInput`
     border-bottom-width: 1px;
-    margin: 15px 0;
+    margin: ${height*0.025}px 0;
     padding: 5px 0;
     font-size: 16px;
     line-height: 18px;

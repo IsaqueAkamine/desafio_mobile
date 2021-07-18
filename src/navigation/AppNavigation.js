@@ -9,7 +9,7 @@ const AppdStack = createStackNavigator();
 const AppdNavigation = () => {
     return (
         <AppdStack.Navigator initialRouteName="Home">
-            <AppdStack.Screen name="Home" component={HomeScreen} />
+            <AppdStack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         </AppdStack.Navigator>
     )
 }
