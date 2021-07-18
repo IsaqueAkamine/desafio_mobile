@@ -4,31 +4,40 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from './AuthNavigation';
 import AppNavigation from './AppNavigation';
 import { AuthContext } from '../contexts/context';
+import { storeUser, getUser, removeUser } from '../services/authStorage';
 
 const Navigation = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState<Object>(null);
+
+
 
     const authContext = React.useMemo(() => {
         return {
-            signIn: () => {
+            signIn: (objUser: Object) => {
                 setIsLoading(false);
-                setUser('Token-123456');
+                setUser(objUser);
+                storeUser(objUser)
             },
-            signUp: () => {
+            signUp: (objUser: Object) => {
                 setIsLoading(false);
-                setUser('Token-123456');
+                setUser(objUser);
+                storeUser(objUser)
             },
             signOut: () => {
                 setIsLoading(false);
                 setUser(null);
+                removeUser();
             },
         }
     }, []);
 
     useEffect(() => {
-        setTimeout(() => {
+        setTimeout(async () => {
             setIsLoading(false);
+            let user = await getUser()
+            console.log('user: ', user);
+            setUser(user);
         }, 500);
     }, []);
 

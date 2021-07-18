@@ -47,7 +47,7 @@ const SignIn = ({ navigation }) => {
 
                         <ButtonsContainer>
                             <SignInTitle>Sign In</SignInTitle>
-                            <ButtonSubmit onPress={() => { signIn() }}>
+                            <ButtonSubmit onPress={() => { signIn({ token: '12345', user: { name: 'Isaque', lastname: 'Akamine' } }) }}>
                                 <AntDesign name="arrowright" size={24} color="#FFF" />
                             </ButtonSubmit>
                         </ButtonsContainer>
