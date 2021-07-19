@@ -31,3 +31,54 @@ Seu projeto será avaliado de acordo com os seguintes critérios.
 4. Qualidade e cobertura dos testes unitários.
 
 Adicionalmente, tentaremos verificar a sua familiarização com as bibliotecas padrões (standard libs), bem como sua experiência com programação orientada a objetos a partir da estrutura de seu projeto.
+
+
+# Como iniciar
+
+1. Clone o repositório.
+2. Execute "expo install"
+3. Execute "expo build:android" para realizar as primeiras configurações para obter as credenciais.
+4. Execute "expo fetch:android:hashes"
+
+# Firebase
+-Acessar https://console.firebase.google.com 
+-Adicionar novo projeto
+
+-Dentro do console acessar menu lateral 
+    -Authentication > Primeiros passos
+    -Em Sign-in Method selecionar as opções Email/senha > Editar > Ativar
+
+    -Visão geral do projeto > Configuração do projeto
+    -Geral
+    -Seus aplicativos
+    -Adicione WEB
+        -Selecionando WEB:
+        -Registre seu app, isso vai gerar as configurações do firebase para seu app.
+        -Copie as informações "firebaseConfig" e substitua em "/utils/config.js":
+            ex: 
+            var firebaseConfig = {
+                apiKey: "AIzaSyA2xxxxxxxxxxxx",
+                authDomain: "desafio-mobile-xxxxxx.firebaseapp.com",
+                projectId: "desafio-mobile-xxxxxx",
+                storageBucket: "desafio-mobile-xxxxxx.appspot.com",
+                messagingSenderId: "13120000000",
+                appId: "1:13120000000:web:d1edaxxxxxxxxxxx",
+                measurementId: "G-WXxxxxxxxxx"
+            };
+    -Adicione IOS
+        -registre seu ID do Pacote, "app.json>ios.bundleIdentifier"
+        -download do GoogleService-Info.plist na raiz do projeto
+        -adicione no app.json "ios.googleServicesFile" apontando para o caminho do arquivo GoogleService-Info.plist
+    -Adicione Android
+        -registre seu ID do Pacote, "app.json>android.package"
+        -download do google-services.json na raiz do projeto
+        -adicione no app.json "android.googleServicesFile" apontando para o caminho do arquivo google-services.json
+    -App.json:
+        -adicione: "android.config.googleMaps.apiKey" = mesma api_key.current_key do google-services.json
+
+# Console Google
+1. Em https://console.cloud.google.com/home/dashboard:
+    1. Selecione seu projeto (gerado pelo firebase)
+    2. Vá até APIs e serviços
+    3. Ative Maps SDK for Android
+    4. Ative Google Analytics API
