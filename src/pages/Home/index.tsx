@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Container, Footer, Title, ButtonSubmit } from './styles';
+import { Container, IconContent, Footer, Title, ButtonSubmit } from './styles';
 import { AuthContext } from '../../contexts/context';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
+import { Ionicons } from '@expo/vector-icons';
 
-const Home = () => {
+const Home = ({ navigation }) => {
     const { signOut } = useContext(AuthContext);
     const [location, setLocation] = useState({
         latitude: -21.65,
@@ -25,7 +26,7 @@ const Home = () => {
                             latitudeDelta: 0.005,
                             longitudeDelta: 0.04
                         });
-                    }, 3000);
+                    }, 1000);
                 } else {
                     throw new Error('Location permission not granted');
                 }
@@ -36,15 +37,21 @@ const Home = () => {
         askPermission();
     }, []);
 
+    const _openDrawer = () => {
+        navigation.toggleDrawer();
+    }
+
     return (
         <Container>
+            <IconContent onPress={_openDrawer}>
+                <Ionicons name="menu-sharp" size={32} color="black" />
+            </IconContent>
             <MapView
                 style={{ height: '80%' }}
                 initialRegion={location}
                 showsUserLocation={true}
                 region={location}
-            >
-            </MapView>
+            ></MapView>
 
             <Footer>
                 <Title>Home screen</Title>
