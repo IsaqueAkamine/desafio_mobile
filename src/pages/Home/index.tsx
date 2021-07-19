@@ -4,6 +4,7 @@ import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 import { storeLocation } from '../../services/authStorage';
+import * as Analytics from 'expo-firebase-analytics';
 
 const Home = ({ navigation }) => {
     const [location, setLocation] = useState({
@@ -38,6 +39,17 @@ const Home = ({ navigation }) => {
         };
 
         askPermission();
+    }, []);
+
+    useEffect(() => {
+        const firebaseAnalytics = async () => {
+            await Analytics.logEvent('Maps', {
+                name: 'Maps',
+                screen: 'Home',
+                purpose: 'Log event show maps analytics',
+            });
+        }
+        firebaseAnalytics();
     }, []);
 
     const _openDrawer = () => {

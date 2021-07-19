@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Alert, Platform } from 'react-native';
 import { AuthContext } from '../../contexts/context';
 import * as firebase from 'firebase';
@@ -29,6 +29,8 @@ const SignIn = ({ navigation }) => {
     const [disabledButton, setDisabledButton] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => { }, []);
 
     const _signUp = () => {
         navigation.push('SignUp');

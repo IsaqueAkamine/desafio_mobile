@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthNavigation from './AuthNavigation';
 import AppNavigation from './AppNavigation';
 import { AuthContext } from '../contexts/context';
 import { storeUser, getUser, removeUser } from '../services/authStorage';
 import * as firebase from 'firebase';
+import * as Analytics from 'expo-firebase-analytics';
 
 const Navigation = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -31,17 +32,18 @@ const Navigation = () => {
                 setUser(null);
                 removeUser();
                 await firebase.auth().signOut();
-            },
-            userLogged: user,
+            }
         }
     }, []);
 
     useEffect(() => {
-        setTimeout(async () => {
+        const retornaUsuario = async () => {
             setIsLoading(false);
-            let user = await getUser()
-            setUser(user);
-        }, 500);
+            getUser().then((res) => {
+                setUser(res);
+            })
+        }
+        retornaUsuario();
     }, []);
 
     const LoadingScreen = () => (
@@ -60,9 +62,13 @@ const Navigation = () => {
                 onStateChange={async () => {
                     const currentRouteName = navigationRef.current.getCurrentRoute().name;
                     if (currentRouteName === 'Home') {
-                        // await Analytics.setCurrentScreen(currentRouteName, currentRouteName);
+                        await Analytics.setCurrentScreen(currentRouteName, currentRouteName);
+                        await Analytics.logEvent('login', {
+                            user: user?.user?.email,
+                        });
                     }
-                }}>
+                }}
+            >
                 {user ? <AppNavigation /> : <AuthNavigation />}
             </NavigationContainer>
         </AuthContext.Provider >
