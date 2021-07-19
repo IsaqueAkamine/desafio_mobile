@@ -8,6 +8,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+fireConfig.js
 
 # macOS
 .DS_Store

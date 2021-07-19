@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Platform } from 'react-native';
 import { AuthContext } from '../../contexts/context';
 
 // assets import
@@ -19,7 +20,6 @@ import {
     ButtonsContainer,
     ButtonSubmit,
 } from './styles';
-import { Platform } from 'react-native';
 
 const SignIn = ({ navigation }) => {
     const { signIn } = useContext(AuthContext);
