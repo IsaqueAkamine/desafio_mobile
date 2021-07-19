@@ -10,8 +10,6 @@ const Navigation = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState<Object>(null);
 
-
-
     const authContext = React.useMemo(() => {
         return {
             signIn: (objUser: Object) => {
@@ -29,6 +27,7 @@ const Navigation = () => {
                 setUser(null);
                 removeUser();
             },
+            userLogged: user,
         }
     }, []);
 

@@ -15,14 +15,3 @@ export const IconContent = styled.TouchableOpacity`
     top: ${height * 0.05}px;
     left: ${width * 0.02}px;
 `;
-
-export const Footer = styled.View`
-    height: 20%;
-    align-items: center;
-`;
-
-export const Title = styled.Text`
-    font-size: 18px;
-`;
-
-export const ButtonSubmit = styled.Button``;

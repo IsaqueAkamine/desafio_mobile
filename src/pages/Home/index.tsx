@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Container, IconContent, Footer, Title, ButtonSubmit } from './styles';
-import { AuthContext } from '../../contexts/context';
+import { Container, IconContent } from './styles';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
 
 const Home = ({ navigation }) => {
-    const { signOut } = useContext(AuthContext);
     const [location, setLocation] = useState({
         latitude: -21.65,
         longitude: -50.17,
@@ -47,16 +45,11 @@ const Home = ({ navigation }) => {
                 <Ionicons name="menu-sharp" size={32} color="black" />
             </IconContent>
             <MapView
-                style={{ height: '80%' }}
+                style={{ flex: 1 }}
                 initialRegion={location}
                 showsUserLocation={true}
                 region={location}
             ></MapView>
-
-            <Footer>
-                <Title>Home screen</Title>
-                <ButtonSubmit title="Logout" onPress={() => { signOut() }} />
-            </Footer>
         </Container>
     )
 }
