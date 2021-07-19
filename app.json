@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.akamine.desafiomobile",
+      "bundleIdentifier": "com.suaorganizacao.desafiomobile",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
@@ -26,11 +26,11 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.akamine.desafiomobile",
+      "package": "com.suaorganizacao.desafiomobile",
       "googleServicesFile": "./google-services.json",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyA9RRJafJSZpXSqZIG8GpTEX8HFp-Tg-AE"
+          "apiKey": "SUA CHAVE API_KEY"
         }
       }
     },
