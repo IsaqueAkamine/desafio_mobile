@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Alert, Platform } from 'react-native';
 import { AuthContext } from '../../contexts/context';
 import * as firebase from 'firebase';
+import { validaEmail } from '../../utils/constants';
 
 // assets import
 import { AntDesign } from '@expo/vector-icons';
@@ -38,28 +39,29 @@ const SignUp = ({ navigation }) => {
     const _handlePassword = (text: string) => { setPassword(text) }
     const _handleConfirmPassword = (text: string) => { setConfirmPassword(text) }
 
-    const validaEmail = (email: string) => {
-        return !email.match(/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/);
-    }
-
     const validateFields = () => {
+        setDisabledButton(true);
         if (email === '' || password === '') {
             Alert.alert('Erro ao criar conta', 'Informe e-mail e senha');
+            setDisabledButton(false);
             return;
         }
 
         if (password !== confirmPassword) {
             Alert.alert('Erro ao criar conta', 'Verifique confirmação de senha');
+            setDisabledButton(false);
             return;
         }
 
         if (password.length < 6) {
             Alert.alert('Erro ao criar conta', 'Informe uma senha maior que 6 caracteres');
+            setDisabledButton(false);
             return;
         }
 
         if (validaEmail(email)) {
             Alert.alert('Erro ao criar conta', 'Email inválido');
+            setDisabledButton(false);
             return;
         }
         createAccount();
@@ -82,6 +84,7 @@ const SignUp = ({ navigation }) => {
                 );
             })
             .catch((error) => {
+                setDisabledButton(false);
                 if (error.code === 'auth/email-already-in-use') {
                     Alert.alert(
                         `Erro`,

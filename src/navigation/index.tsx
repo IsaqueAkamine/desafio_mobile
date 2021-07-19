@@ -36,7 +36,6 @@ const Navigation = () => {
         setTimeout(async () => {
             setIsLoading(false);
             let user = await getUser()
-            console.log('user: ', user);
             setUser(user);
         }, 500);
     }, []);

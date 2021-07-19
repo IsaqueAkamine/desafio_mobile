@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
 import { AuthContext } from '../../contexts/context';
+import * as firebase from 'firebase';
+import { validaEmail } from '../../utils/constants';
 
 // assets import
 import { AntDesign } from '@expo/vector-icons';
@@ -24,6 +26,7 @@ import {
 const SignIn = ({ navigation }) => {
     const { signIn } = useContext(AuthContext);
 
+    const [disabledButton, setDisabledButton] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -33,6 +36,60 @@ const SignIn = ({ navigation }) => {
 
     const _handleEmail = (text: string) => { setEmail(text) }
     const _handlePassword = (text: string) => { setPassword(text) }
+
+    const validateFields = () => {
+        setDisabledButton(true);
+        if (email === '' || password === '') {
+            Alert.alert('Erro login', 'Informe e-mail e senha');
+            setDisabledButton(false);
+            return;
+        }
+
+        if (validaEmail(email)) {
+            Alert.alert('Erro login', 'Email inválido');
+            setDisabledButton(false);
+            return;
+        }
+
+        login();
+    }
+
+    const login = async () => {
+        firebase
+            .auth()
+            .signInWithEmailAndPassword(email, password)
+            .then(async (userCredential) => {
+                setDisabledButton(false);
+                var user = {
+                    token: await userCredential.user.getIdToken(),
+                    user: userCredential.user
+                };
+                signIn(user);
+            })
+            .catch((error) => {
+                if (error.code === 'auth/user-not-found') {
+                    Alert.alert(
+                        `Erro`,
+                        `Conta não encontrada.\nDeseja criar uma conta agora?`,
+                        [
+                            { text: 'Não', style: 'cancel', onPress: () => { setDisabledButton(false) } },
+                            {
+                                text: 'Sim', onPress: () => {
+                                    navigation.push('SignUp');
+                                    setDisabledButton(false);
+                                }
+                            },
+                        ]
+                    );
+                    return;
+                }
+                if (error.code === 'auth/wrong-password') {
+                    Alert.alert('Erro', 'Verifique seus dados e tente novamente')
+                    setDisabledButton(false);
+                    return;
+                }
+            });
+    }
 
     return (
         <Container>
@@ -47,7 +104,7 @@ const SignIn = ({ navigation }) => {
 
                         <ButtonsContainer>
                             <SignInTitle>Sign In</SignInTitle>
-                            <ButtonSubmit onPress={() => { signIn({ token: '12345', user: { name: 'Isaque', lastname: 'Akamine' } }) }}>
+                            <ButtonSubmit onPress={validateFields} disabled={disabledButton}>
                                 <AntDesign name="arrowright" size={24} color="#FFF" />
                             </ButtonSubmit>
                         </ButtonsContainer>

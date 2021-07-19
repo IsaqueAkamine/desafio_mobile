@@ -25,5 +25,4 @@ export const removeUser = async () => {
     } catch (e) {
         // remove error
     }
-    console.log('User removed.')
 }
