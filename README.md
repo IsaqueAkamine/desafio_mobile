@@ -82,3 +82,12 @@ Adicionalmente, tentaremos verificar a sua familiarização com as bibliotecas p
     2. Vá até APIs e serviços
     3. Ative Maps SDK for Android
     4. Ative Google Analytics API
+
+# Expo app
+1. Execute "expo start"
+2. Rode no emulador ou dispositivo
+3. Crie sua conta.
+
+# Android app
+1. Execute "expo build:android", isso vai gerar um link para download do apk quando terminar.
+2. Instale e crie sua conta.
