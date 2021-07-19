@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View, Image } from 'react-native';
 import { AuthContext } from '../../contexts/context';
-import { Ionicons, FontAwesome } from '@expo/vector-icons';
+import { AntDesign, Ionicons, FontAwesome } from '@expo/vector-icons';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import appLogo from '../../assets/bycoderslogo.png';
 
@@ -17,6 +17,8 @@ import {
 
 export default function AppDrawerContent({ props, navigation }) {
     const { signOut } = useContext(AuthContext);
+
+    const _navigation = (screen) => { navigation.navigate(screen); }
 
     return (
         <DrawerContentScrollView {...props}>
@@ -49,9 +51,14 @@ export default function AppDrawerContent({ props, navigation }) {
                     icon={({ color, size }) => <Ionicons name="home" size={size} color={color} />}
                     label="Home"
                     labelStyle={{ fontSize: 14 }}
-                    onPress={() => {
-                        console.log('funcao')
-                    }}
+                    onPress={() => { _navigation('Home') }}
+                />
+
+                <DrawerItem
+                    icon={({ color, size }) => <AntDesign name="profile" size={size} color={color} />}
+                    label="Profile"
+                    labelStyle={{ fontSize: 14 }}
+                    onPress={() => { _navigation('Profile') }}
                 />
             </Content>
 

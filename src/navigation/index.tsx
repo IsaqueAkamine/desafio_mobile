@@ -5,10 +5,14 @@ import AuthNavigation from './AuthNavigation';
 import AppNavigation from './AppNavigation';
 import { AuthContext } from '../contexts/context';
 import { storeUser, getUser, removeUser } from '../services/authStorage';
+import * as firebase from 'firebase';
 
 const Navigation = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState<Object>(null);
+
+    const routeNameRef = React.useRef();
+    const navigationRef = React.useRef();
 
     const authContext = React.useMemo(() => {
         return {
@@ -22,10 +26,11 @@ const Navigation = () => {
                 setUser(objUser);
                 storeUser(objUser)
             },
-            signOut: () => {
+            signOut: async () => {
                 setIsLoading(false);
                 setUser(null);
                 removeUser();
+                await firebase.auth().signOut();
             },
             userLogged: user,
         }
@@ -49,10 +54,18 @@ const Navigation = () => {
 
     return (
         <AuthContext.Provider value={authContext}>
-            <NavigationContainer>
+            <NavigationContainer
+                ref={navigationRef}
+                onReady={() => (routeNameRef.current = navigationRef?.current.getCurrentRoute().name)}
+                onStateChange={async () => {
+                    const currentRouteName = navigationRef.current.getCurrentRoute().name;
+                    if (currentRouteName === 'Home') {
+                        // await Analytics.setCurrentScreen(currentRouteName, currentRouteName);
+                    }
+                }}>
                 {user ? <AppNavigation /> : <AuthNavigation />}
             </NavigationContainer>
-        </AuthContext.Provider>
+        </AuthContext.Provider >
     )
 }
 

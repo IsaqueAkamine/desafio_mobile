@@ -3,6 +3,7 @@ import { Container, IconContent } from './styles';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Ionicons } from '@expo/vector-icons';
+import { storeLocation } from '../../services/authStorage';
 
 const Home = ({ navigation }) => {
     const [location, setLocation] = useState({
@@ -24,6 +25,10 @@ const Home = ({ navigation }) => {
                             latitudeDelta: 0.005,
                             longitudeDelta: 0.04
                         });
+                        storeLocation({
+                            latitude: local.coords.latitude,
+                            longitude: local.coords.longitude,
+                        })
                     }, 1000);
                 } else {
                     throw new Error('Location permission not granted');
